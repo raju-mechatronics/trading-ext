@@ -1,0 +1,36 @@
+#extension-root-per #candlestick-container {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  #extension-root-per  #percentage-differences {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  #extension-root-per h2 {
+    margin-bottom: 10px;
+    font-size: 18px;
+  }
+  
+  #extension-root-per div {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+  
+  #extension-root-per span {
+    font-weight: bold;
+  }
+  
+  #extension-root-per #oh-percentage,
+  #extension-root-per #ol-percentage,
+  #extension-root-per #oc-percentage,
+  #extension-root-per #hl-percentage,
+  #extension-root-per #change-percentage {
+    color: #333;
+  }
+  
