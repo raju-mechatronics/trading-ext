@@ -19,6 +19,13 @@ export default defineManifest(() => ({
         "https://www.bybit.com/*",
       ],
       js: ["src/content/index.ts"],
+      all_frames: true,
+    },
+    {
+      matches: ["https://www.bitget.com/*"],
+      js: ["src/content/index.ts"],
+      match_origin_as_fallback: true,
+      all_frames: true,
     },
   ],
 }));

@@ -8,7 +8,7 @@ root.id = "extension-root-per";
 document.body.appendChild(root);
 
 function waitForFunctionReturn(func: () => boolean) {
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve) => {
     const interval = setInterval(() => {
       const el = func();
       if (el) {
@@ -28,10 +28,10 @@ async function injectDiv() {
   if (chartContainer) chartContainer.appendChild(root);
 }
 
-injectDiv();
-
-ReactDOM.createRoot(root).render(
-  <React.StrictMode>
-    <Block />
-  </React.StrictMode>
-);
+injectDiv().then(() => {
+  ReactDOM.createRoot(root).render(
+    <React.StrictMode>
+      <Block />
+    </React.StrictMode>
+  );
+});

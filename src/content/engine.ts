@@ -1,9 +1,11 @@
+import $ from "jquery";
+
 interface Candlestick {
   open: number;
   high: number;
   low: number;
   close: number;
-  change: number;
+  change: number | string;
 }
 
 interface CandlestickData {
@@ -28,12 +30,13 @@ function calculatePercentageDifference(
     OL,
     OC,
     HL,
-    change: change.toFixed(2) + "%",
+    change: change + "%",
   };
 }
 
 function extractOHLC(inputString: string) {
-  const regex = /O(\d+)H(\d+)L(\d+)C(\d+)([-+−]\d+)\s\(([-+−]\d*\.?\d+)%\)/;
+  const regex =
+    /O([\d.]+)H([\d.]+)L([\d.]+)C([\d.]+)([-+−]?[\d.]+)\s\(([-+−]?[\d.]+)%\)/;
   const matches = inputString.match(regex);
 
   if (!matches) {
@@ -53,12 +56,12 @@ function extractOHLC(inputString: string) {
 }
 
 function calculate(content: string) {
-  const { O, H, L, C, numberInBracket, percentage } = extractOHLC(content);
+  const { O, H, L, C, percentage } = extractOHLC(content);
   const open = parseFloat(O);
   const high = parseFloat(H);
   const low = parseFloat(L);
   const close = parseFloat(C);
-  const change = parseFloat(percentage);
+  const change = percentage;
 
   return calculatePercentageDifference({
     open,
@@ -71,6 +74,7 @@ function calculate(content: string) {
 
 function getData() {
   const t = $('[data-name="legend-series-item"]');
+  console.log(t.last().text());
   return t.last().text();
 }
 

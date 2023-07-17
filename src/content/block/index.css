@@ -1,14 +1,16 @@
 #extension-root-per #candlestick-container {
-    background-color: #f9f9f9;
-    padding: 20px;
+    background-color: #7789c5;
+    padding: 10px;
     border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
   }
   
   #extension-root-per  #percentage-differences {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
+    justify-content: space-between;
+    min-width: 450px;
   }
   
   #extension-root-per h2 {
@@ -18,8 +20,6 @@
   
   #extension-root-per div {
     display: flex;
-    justify-content: space-between;
-    margin-bottom: 10px;
   }
   
   #extension-root-per span {
