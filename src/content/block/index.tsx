@@ -9,15 +9,17 @@ export default function Block() {
     HL: "0",
     change: "0",
   });
+  const [show, setShow] = useState(true);
 
   useEffect(() => {
-    window.addEventListener("mousemove", () => {
+    const interval = setInterval(() => {
       const data = getFinalData();
       setState(data);
-    });
+    }, 10);
+    return () => clearInterval(interval);
   }, []);
 
-  console.log(state);
+  if (!show) return null;
 
   return (
     <div
@@ -25,8 +27,8 @@ export default function Block() {
       style={{
         zIndex: 9999999,
         position: "absolute",
-        top: 5,
-        right: 50,
+        bottom: 0,
+        left: 0,
       }}
     >
       <div id="percentage-differences">
@@ -49,6 +51,23 @@ export default function Block() {
         <div id="change">
           <span>CNG: {state.change}</span>
           <span id="change-percentage"></span>
+        </div>
+        <div
+          onClick={() => setShow(false)}
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+            height: "100%",
+            color: "red",
+            cursor: "pointer",
+            border: "1px solid red",
+            padding: "0 5px",
+            borderRadius: "50%",
+          }}
+        >
+          X
         </div>
       </div>
     </div>

@@ -1,6 +1,5 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import "./index.css";
 import Block from "./index";
 
 const root: HTMLDivElement = document.createElement("div");
@@ -24,7 +23,6 @@ async function injectDiv() {
     () => !!document.querySelector(".chart-container")
   );
   const chartContainer = document.querySelector(".chart-container");
-  console.log("chartContainer", chartContainer);
   if (chartContainer) chartContainer.appendChild(root);
 }
 

@@ -74,7 +74,6 @@ function calculate(content: string) {
 
 function getData() {
   const t = $('[data-name="legend-series-item"]');
-  console.log(t.last().text());
   return t.last().text();
 }
 
