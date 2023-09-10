@@ -19,11 +19,24 @@ function waitForFunctionReturn(func: () => boolean) {
 }
 
 async function injectDiv() {
-  await waitForFunctionReturn(
-    () => !!document.querySelector(".chart-container")
-  );
-  const chartContainer = document.querySelector(".chart-container");
-  if (chartContainer) chartContainer.appendChild(root);
+  if (document.URL.includes("futures.mexc.com/exchange/")) {
+    await waitForFunctionReturn(
+      () =>
+        !!document.querySelector("#mexc-web-inspection-futures-exchange-kline")
+    );
+    const chartContainer = document.querySelector(
+      "#mexc-web-inspection-futures-exchange-kline"
+    );
+    if (chartContainer) chartContainer.firstChild?.appendChild(root);
+  } else {
+    document.querySelector("#mexc-web-inspection-futures-exchange-kline");
+
+    await waitForFunctionReturn(
+      () => !!document.querySelector(".chart-container")
+    );
+    const chartContainer = document.querySelector(".chart-container");
+    if (chartContainer) chartContainer.appendChild(root);
+  }
 }
 
 injectDiv().then(() => {

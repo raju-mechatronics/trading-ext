@@ -17,6 +17,7 @@ export default defineManifest(() => ({
         "https://www.tradingview.com/chart/*",
         "https://www.bitget.com/*",
         "https://www.bybit.com/*",
+        "https://futures.mexc.com/exchange/*",
       ],
       js: ["src/content/index.ts"],
       all_frames: true,

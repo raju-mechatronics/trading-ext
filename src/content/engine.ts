@@ -55,7 +55,60 @@ function extractOHLC(inputString: string) {
   };
 }
 
-function calculate(content: string) {
+function extractFromMexc() {
+  function extractDataMEXC(text: string) {
+    const openMatch = text.match(
+      /Open: ([-+]?\d{1,3}(?:,?\d{3})*(?:\.\d{1,2})?)/
+    );
+    const closeMatch = text.match(
+      /Close: ([-+]?\d{1,3}(?:,?\d{3})*(?:\.\d{1,2})?)/
+    );
+    const highMatch = text.match(
+      /High: ([-+]?\d{1,3}(?:,?\d{3})*(?:\.\d{1,2})?)/
+    );
+    const lowMatch = text.match(
+      /Low: ([-+]?\d{1,3}(?:,?\d{3})*(?:\.\d{1,2})?)/
+    );
+    const changesMatch = text.match(
+      /Changes: ([+-]?\d{1,3}(?:,?\d{3})*(?:\.\d{1,2})?%)/
+    );
+
+    if (openMatch && closeMatch && highMatch && lowMatch && changesMatch) {
+      const open = parseFloat(openMatch[1].replace(/,/g, ""));
+      const close = parseFloat(closeMatch[1].replace(/,/g, ""));
+      const high = parseFloat(highMatch[1].replace(/,/g, ""));
+      const low = parseFloat(lowMatch[1].replace(/,/g, ""));
+      const change = parseFloat(changesMatch[1].replace(/,/g, "")) as
+        | string
+        | number;
+
+      return {
+        open,
+        close,
+        high,
+        low,
+        change,
+      };
+    } else {
+      throw new Error("Data not found in the provided text");
+    }
+  }
+  const text = (
+    document.querySelector(
+      "#originkline-tooltip-line > div > span"
+    ) as HTMLElement
+  ).textContent as string;
+  const data = extractDataMEXC(text);
+  data.change = data.change.toString() + "%";
+  return data;
+}
+
+function calculate() {
+  if (document.URL.includes("futures.mexc.com/exchange")) {
+    console.log("calculating");
+    return calculatePercentageDifference(extractFromMexc());
+  }
+  const content = getData();
   const { O, H, L, C, percentage } = extractOHLC(content);
   const open = parseFloat(O);
   const high = parseFloat(H);
@@ -78,7 +131,6 @@ function getData() {
 }
 
 export function getFinalData() {
-  const content = getData();
-  const data = calculate(content);
+  const data = calculate();
   return data;
 }
